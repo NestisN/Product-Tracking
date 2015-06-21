@@ -1,0 +1,113 @@
+<?php
+
+namespace TSProj\ProductBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Product
+ *
+ * @ORM\Table(name="product")
+ * @ORM\Entity(repositoryClass="TSProj\ProductBundle\Entity\ProductRepository")
+ */
+class Product
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="product_barcode", type="string", length=45)
+     */
+    private $productBarcode;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="product_name", type="string", length=255)
+     */
+    private $productName;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="product_description", type="string", length=255)
+     */
+    private $productDescription;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="drawing_id", type="string", length=255)
+     */
+    private $drawingId;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="drawing_location", type="string", length=255,nullable=true)
+     */
+    private $drawingLocation;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="no_of_process", type="integer")
+     */
+    private $noOfProcess;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="product_time_consuming", type="float")
+     */
+    private $productTimeConsuming;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Project",inversedBy="product")
+     **/
+    private $project;
+    
+    /**
+     * 
+     * @ORM\ManyToMany(targetEntity="Process",mappedBy="product")
+     */
+    private $process;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="WorkStatus",inversedBy="product")
+     **/
+    private $productStatus;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Stock",inversedBy="product")
+     **/
+    private $stock;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="ProductProcessTime", mappedBy="product")
+     **/
+    private $productProcessTime;
+    
+    /** 
+     * @var boolean
+     * 
+     * @ORM\Column(name="delete_flag",type="boolean")
+     */
+    private $deleteFlag=0;
+    
+    /** 
+     * @var datetime
+     * 
+     * @ORM\Column(name="last_maint_dt_time",type="datetime")
+     */
+    private $lastMaintDateTime;
+    
+}
